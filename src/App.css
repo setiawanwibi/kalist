@@ -4493,8 +4493,9 @@ select:focus {
   right: 10px;
   bottom: 10px;
 
-  width: auto;
+  width: calc(100% - 20px);
   max-width: none;
+  min-width: 0;
 
   height: 62px;
 
@@ -4522,8 +4523,9 @@ select:focus {
 
 .bottom-nav .nav-item {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
+  max-width: 100%;
+
   min-height: 50px;
 
   display: flex;
@@ -4534,7 +4536,7 @@ select:focus {
 
   gap: 3px;
 
-  padding: 5px 3px;
+  padding: 5px 2px;
 
   border-radius: 13px;
 
@@ -4544,10 +4546,16 @@ select:focus {
   line-height: 1.1;
 
   text-align: center;
+
+  overflow: hidden;
 }
 
 .bottom-nav .nav-item span {
+  display: block;
+
+  width: 100%;
   max-width: 100%;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
