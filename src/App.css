@@ -7537,3 +7537,732 @@ body {
     padding: 25px 13px;
   }
 }
+
+
+/* =========================================================
+   KALIST — FINAL CROSS-PAGE MOBILE UX PASS
+   Goals:
+   - 2 x 2 metric cards on every phone
+   - clean Watchlist spacing
+   - stable Tasks hierarchy
+   - no duplicated / decorative search icons
+   - form modals behave like normal document content on mobile
+   - avoid nested scroll traps
+   - smoother native touch scrolling
+   ========================================================= */
+
+/* ---------- Global mobile scrolling ---------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: none;
+}
+
+.main-content {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+/* Never let a page wrapper create an artificial viewport-sized gap. */
+.main-content,
+.page-shell,
+.productivity-page,
+.today-page,
+.tasks-page,
+.watchlist-page,
+.search-page,
+.settings-page {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+/* =========================================================
+   METRICS — MOBILE 2 x 2
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .today-metrics .metric-card,
+  .task-metrics .metric-card,
+  .media-metrics .metric-card {
+    width: 100%;
+    min-width: 0 !important;
+    min-height: 112px;
+    box-sizing: border-box;
+  }
+
+  .today-metrics {
+    margin-bottom: 26px !important;
+  }
+
+  .task-metrics {
+    margin-bottom: 28px !important;
+  }
+
+  .media-metrics {
+    margin-top: 4px !important;
+    margin-bottom: 28px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .today-metrics .metric-card,
+  .task-metrics .metric-card,
+  .media-metrics .metric-card {
+    min-height: 104px;
+    padding: 14px !important;
+    border-radius: 15px;
+  }
+
+  .metric-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 11px;
+    border-radius: 9px;
+  }
+
+  .metric-card strong {
+    font-size: 21px;
+  }
+
+  .metric-card small {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 420px) {
+  /* Keep the requested 2 x 2 layout even on small phones. */
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .today-metrics .metric-card,
+  .task-metrics .metric-card,
+  .media-metrics .metric-card {
+    min-height: 98px;
+    padding: 12px !important;
+  }
+
+  .metric-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 9px;
+  }
+
+  .metric-label {
+    font-size: 8px;
+    letter-spacing: .045em;
+  }
+
+  .metric-card strong {
+    font-size: 19px;
+  }
+
+  .metric-card small {
+    font-size: 8.5px;
+  }
+}
+
+/* =========================================================
+   TODAY — BETTER MOBILE RHYTHM
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .today-page .page-heading {
+    margin-bottom: 24px;
+  }
+
+  .today-page .today-metrics {
+    margin-bottom: 28px !important;
+  }
+
+  .today-page .today-grid {
+    gap: 22px;
+  }
+
+  .today-page .progress-summary {
+    margin-bottom: 24px;
+  }
+
+  .today-page .task-section {
+    margin-top: 24px;
+  }
+}
+
+/* =========================================================
+   WATCHLIST — MOBILE HIERARCHY
+   ========================================================= */
+
+.watchlist-page .page-heading {
+  margin-bottom: 32px;
+}
+
+.watchlist-page .media-toolbar {
+  margin-bottom: 22px !important;
+}
+
+.watchlist-page .media-metrics {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .watchlist-page .page-heading {
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .watchlist-page .page-heading > a.button {
+    margin-top: 2px;
+  }
+
+  .watchlist-page .media-toolbar {
+    gap: 10px;
+    margin-bottom: 20px !important;
+  }
+
+  .watchlist-page .media-filters {
+    margin-bottom: 0;
+  }
+
+  .watchlist-page .media-metrics {
+    margin-top: 0 !important;
+    margin-bottom: 26px !important;
+  }
+
+  .watchlist-page .media-grid {
+    gap: 12px;
+  }
+
+  .watchlist-page .watchlist-empty {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 680px) {
+  .watchlist-page .page-heading {
+    margin-bottom: 26px;
+  }
+
+  .watchlist-page .media-toolbar {
+    padding: 11px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+
+  .watchlist-page .toolbar-count {
+    font-size: 10px;
+  }
+
+  .watchlist-page .media-filters {
+    gap: 6px;
+    width: 100%;
+    padding-bottom: 2px;
+  }
+
+  .watchlist-page .media-filters .filter-button {
+    min-height: 35px;
+    padding: 7px 10px;
+  }
+}
+
+/* =========================================================
+   TASKS — FINAL MOBILE STRUCTURE
+   ========================================================= */
+
+.tasks-page .tasks-overview {
+  margin-bottom: 28px !important;
+}
+
+.tasks-page .task-metrics {
+  margin-bottom: 30px !important;
+}
+
+@media (max-width: 900px) {
+  .tasks-page .tasks-overview {
+    margin-bottom: 24px !important;
+  }
+
+  .tasks-page .task-metrics {
+    margin-bottom: 26px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+    margin-bottom: 26px !important;
+    padding: 10px !important;
+  }
+
+  .tasks-page .task-toolbar .search-field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tasks-page .task-toolbar .search-field > svg {
+    left: 13px;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    transform: translateY(-50%);
+  }
+
+  .tasks-page .task-toolbar .search-field input {
+    min-height: 44px;
+    padding-left: 41px;
+  }
+
+  .tasks-page .task-toolbar .filter-scroll {
+    order: 2;
+    width: 100%;
+    min-height: 37px;
+    padding: 1px 2px 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tasks-page .task-toolbar .filter-button {
+    scroll-snap-align: start;
+  }
+
+  .tasks-page .task-toolbar .select-filters {
+    order: 3;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .tasks-page .task-toolbar .select-filters select {
+    min-height: 44px;
+  }
+
+  .tasks-page .all-tasks-section {
+    margin-top: 0 !important;
+    padding: 18px 16px 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .tasks-page .tasks-overview {
+    margin-bottom: 22px !important;
+  }
+
+  .tasks-page .task-metrics {
+    margin-bottom: 22px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+    padding: 9px !important;
+  }
+
+  .tasks-page .task-toolbar .filter-scroll {
+    min-height: 36px;
+  }
+
+  .tasks-page .task-toolbar .select-filters {
+    gap: 7px;
+  }
+
+  .tasks-page .task-toolbar .select-filters select {
+    min-height: 42px;
+  }
+
+  .tasks-page .all-tasks-section {
+    padding: 16px 13px 14px;
+  }
+
+  .tasks-page .all-tasks-section .task-empty {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 420px) {
+  .tasks-page .task-toolbar {
+    padding: 8px !important;
+    border-radius: 14px;
+  }
+
+  .tasks-page .task-toolbar .select-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .tasks-page .task-toolbar .select-filters select {
+    min-height: 41px;
+    padding-left: 10px;
+    padding-right: 26px;
+    font-size: 9.5px;
+  }
+
+  .tasks-page .all-tasks-section {
+    padding: 15px 11px 12px;
+  }
+}
+
+/* =========================================================
+   SEARCH — MOBILE CLEANUP
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .search-page .page-heading {
+    margin-bottom: 22px;
+  }
+
+  .search-page .media-search-form {
+    margin-bottom: 24px;
+  }
+
+  .search-page .search-results {
+    margin-top: 24px;
+  }
+
+  .search-page .media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+/* =========================================================
+   ALL FORM MODALS — MOBILE DOCUMENT FLOW
+   No viewport-locked sheet, no nested modal scrolling.
+   The backdrop remains an overlay, but the actual form belongs
+   to normal document flow and can be reached by page scrolling.
+   ========================================================= */
+
+/* If the app applies a modal-open scroll lock, don't trap touch
+   scrolling while a form backdrop exists. Modern Safari/Chrome
+   support :has(). */
+@media (max-width: 900px) {
+  html:has(.form-backdrop),
+  body:has(.form-backdrop) {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+    touch-action: pan-y !important;
+  }
+
+  .form-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    height: auto !important;
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding:
+      calc(76px + env(safe-area-inset-top))
+      12px
+      28px !important;
+    overflow: visible !important;
+    overscroll-behavior: auto !important;
+    touch-action: pan-y !important;
+    background: rgba(15, 18, 22, .30);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  .task-form-modal {
+    position: relative !important;
+    width: min(650px, 100%) !important;
+    max-width: 650px !important;
+    max-height: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    box-sizing: border-box;
+    padding: 22px 18px 20px !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--line) !important;
+    box-shadow: 0 18px 55px rgba(15, 20, 25, .18);
+    touch-action: auto !important;
+  }
+
+  .task-form-modal::-webkit-scrollbar {
+    display: none;
+  }
+
+  .task-form-modal::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  .form-header {
+    position: relative !important;
+    top: auto !important;
+    z-index: 1;
+    margin: -22px -18px 20px !important;
+    padding: 17px 18px 14px !important;
+    border-radius: 20px 20px 0 0;
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 13px !important;
+    margin-bottom: 18px;
+  }
+
+  .field-wide {
+    grid-column: auto !important;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    min-height: 45px;
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+
+  .field textarea {
+    min-height: 105px;
+  }
+
+  .form-actions {
+    position: relative !important;
+    bottom: auto !important;
+    z-index: 1;
+    margin: 18px 0 0 !important;
+    padding: 16px 0 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-top: 1px solid var(--line);
+  }
+
+  .form-actions .button,
+  .form-actions button {
+    min-height: 45px;
+  }
+
+  /* Generic modal surfaces used elsewhere in the app. */
+  .trailer-modal {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .celebration-modal {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .form-backdrop {
+    padding-left: 9px !important;
+    padding-right: 9px !important;
+    padding-top: calc(70px + env(safe-area-inset-top)) !important;
+    padding-bottom: 22px !important;
+  }
+
+  .task-form-modal {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    padding-top: 20px !important;
+    padding-bottom: 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .form-header {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .form-actions {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .form-backdrop {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    padding-top: calc(68px + env(safe-area-inset-top)) !important;
+  }
+
+  .task-form-modal {
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+    border-radius: 17px !important;
+  }
+
+  .form-header {
+    margin-left: -13px !important;
+    margin-right: -13px !important;
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+  }
+}
+
+/* =========================================================
+   MODAL / SCROLL SAFETY
+   ========================================================= */
+
+/* Don't apply smooth scrolling to nested controls; native touch
+   scrolling should stay immediate and responsive. */
+.filter-scroll,
+.media-filters,
+.select-filters,
+.task-form-modal,
+.trailer-modal {
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent horizontal drag from turning into a page-width jump. */
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .media-card,
+  .media-card-body,
+  .watchlist-empty,
+  .search-state,
+  .settings-row,
+  .task-item,
+  .upcoming-panel,
+  .progress-summary,
+  .metric-card {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* =========================================================
+   WATCHLIST MEDIA GRID — PHONE BALANCE
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .watchlist-page .media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .watchlist-page .media-card {
+    border-radius: 14px;
+  }
+
+  .watchlist-page .media-card-body {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .watchlist-page .media-grid {
+    gap: 8px !important;
+  }
+
+  .watchlist-page .media-card-body {
+    padding: 9px;
+  }
+}
+
+/* =========================================================
+   FOOTER / BOTTOM NAV
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .page-footer {
+    margin-top: 0 !important;
+    padding-bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .page-footer {
+    padding-bottom: calc(74px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .page-footer {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* =========================================================
+   WATCHLIST — DESKTOP FINAL SPACING
+   Keep the desktop media history/cards visually separated
+   from the summary block and from each other.
+   ========================================================= */
+@media (min-width: 901px) {
+  .watchlist-page .media-metrics {
+    margin-bottom: 30px !important;
+  }
+
+  .watchlist-page .media-grid {
+    column-gap: 24px !important;
+    row-gap: 28px !important;
+  }
+
+  .watchlist-page .media-card {
+    min-width: 0;
+  }
+
+  .watchlist-page .media-card-body {
+    padding: 16px;
+  }
+
+  .watchlist-page .media-actions {
+    margin-top: 16px;
+    padding-top: 13px;
+  }
+}
+
+/* Extra breathing room on large desktop screens. */
+@media (min-width: 1200px) {
+  .watchlist-page .media-metrics {
+    margin-bottom: 34px !important;
+  }
+
+  .watchlist-page .media-grid {
+    column-gap: 26px !important;
+    row-gap: 30px !important;
+  }
+}
