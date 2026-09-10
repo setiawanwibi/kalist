@@ -187,68 +187,158 @@ function PlaceholderPage({ path }) {
 
 function HomePage() {
   return (
-    <section
-      className="home-page"
-      aria-labelledby="home-title"
-    >
-      <div className="home-copy">
+    <section className="home-page" aria-labelledby="home-title">
 
-        <p className="eyebrow">
-          A quieter way to keep up
-        </p>
+      {/* Ambient background */}
+      <div className="home-orb home-orb-one" aria-hidden="true" />
+      <div className="home-orb home-orb-two" aria-hidden="true" />
+      <div className="home-grid" aria-hidden="true" />
 
-        <h1 id="home-title">
-          Plan your day.
-          <br />
-          <em>Keep the good stuff.</em>
-        </h1>
+      {/* Main hero */}
+      <div className="home-hero">
 
-        <p className="home-description">
-          KALIST brings daily momentum and your next watch
-          together in one considered place.
-        </p>
+        <div className="home-copy">
 
-        <NavLink
-          className="primary-link"
-          to="/today"
-        >
-          Open today
-          <span aria-hidden="true">
-            &#8594;
-          </span>
-        </NavLink>
+          <div className="home-kicker">
+            <span className="home-kicker-dot" />
+            YOUR PERSONAL SPACE
+          </div>
+
+          <h1 id="home-title">
+            Plan less.
+            <br />
+            <span>Live more.</span>
+          </h1>
+
+          <p className="home-description">
+            Keep your day moving, your tasks clear,
+            and the stories you love within reach.
+          </p>
+
+          <div className="home-actions">
+            <NavLink
+              className="home-primary-action"
+              to="/today"
+            >
+              <span>Open your day</span>
+              <span className="home-action-arrow">↗</span>
+            </NavLink>
+
+            <NavLink
+              className="home-secondary-action"
+              to="/watchlist"
+            >
+              Explore watchlist
+            </NavLink>
+          </div>
+
+          <div className="home-trust-line">
+            <span>PLAN</span>
+            <i />
+            <span>FOCUS</span>
+            <i />
+            <span>WATCH</span>
+          </div>
+
+        </div>
+
+
+        {/* Interactive visual */}
+        <div className="home-visual" aria-hidden="true">
+
+          <div className="home-visual-glow" />
+
+          {/* Main glass card */}
+          <div className="home-dashboard-card">
+
+            <div className="home-card-top">
+              <div>
+                <span className="home-card-eyebrow">
+                  TODAY
+                </span>
+                <strong>Your day at a glance</strong>
+              </div>
+
+              <span className="home-card-status">
+                <span />
+                Ready
+              </span>
+            </div>
+
+            <div className="home-progress-ring">
+              <div className="home-progress-inner">
+                <strong>72%</strong>
+                <span>focus</span>
+              </div>
+            </div>
+
+            <div className="home-mini-stats">
+
+              <div className="home-mini-stat">
+                <span className="home-mini-icon">✓</span>
+                <div>
+                  <strong>08</strong>
+                  <small>tasks</small>
+                </div>
+              </div>
+
+              <div className="home-mini-stat">
+                <span className="home-mini-icon">◷</span>
+                <div>
+                  <strong>04</strong>
+                  <small>remaining</small>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* Floating task card */}
+          <div className="home-floating-card home-task-float">
+
+            <div className="home-float-icon">
+              ✓
+            </div>
+
+            <div>
+              <span>FOCUS NOW</span>
+              <strong>Finish portfolio</strong>
+            </div>
+
+            <div className="home-float-check">
+              ✓
+            </div>
+
+          </div>
+
+
+          {/* Floating watch card */}
+          <div className="home-floating-card home-watch-float">
+
+            <div className="home-watch-poster">
+              <Clapperboard size={15} />
+            </div>
+
+            <div>
+              <span>NEXT WATCH</span>
+              <strong>Something good</strong>
+            </div>
+
+            <span className="home-watch-star">★</span>
+
+          </div>
+
+
+          {/* Decorative orbit */}
+          <div className="home-orbit home-orbit-one" />
+          <div className="home-orbit home-orbit-two" />
+
+        </div>
 
       </div>
 
-      <div
-        className="home-aside"
-        aria-label="KALIST principles"
-      >
-
-        <div className="aside-rule" />
-
-        <p className="aside-label">
-          The essentials
-        </p>
-
-        <ul>
-          <li>
-            <CheckSquare size={16} />
-            Daily focus
-          </li>
-
-          <li>
-            <Clapperboard size={16} />
-            Saved stories
-          </li>
-
-          <li>
-            <Home size={16} />
-            One calm place
-          </li>
-        </ul>
-
-      </div>
     </section>
   )
 }
