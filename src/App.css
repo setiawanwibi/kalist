@@ -4220,6 +4220,10 @@ select:focus {
 
 @media (max-width: 900px) {
 
+  .page-footer {
+  display: none;
+  }
+
   :root {
     --sidebar-width: 0px;
   }
@@ -8264,5 +8268,467 @@ iframe {
   .watchlist-page .media-grid {
     column-gap: 26px !important;
     row-gap: 30px !important;
+  }
+}
+
+/* =========================================================
+   KALIST — FINAL CROSS-PAGE POLISH
+   Desktop + mobile spacing, search, task completion,
+   watchlist CTA, and fixed footer.
+   ========================================================= */
+
+/* ---------- GLOBAL RHYTHM ---------- */
+.productivity-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.productivity-page > * {
+  min-width: 0;
+}
+
+.page-heading {
+  margin-bottom: 34px;
+}
+
+/* Keep major content blocks from visually touching each other. */
+.today-metrics,
+.task-metrics,
+.media-metrics {
+  margin-bottom: 30px !important;
+}
+
+/* ---------- TASKS: PROGRESS → SUMMARY CARDS ---------- */
+.tasks-page .tasks-overview {
+  margin-bottom: 0 !important;
+}
+
+.tasks-page .tasks-overview .progress-summary {
+  margin-bottom: 30px !important;
+}
+
+.tasks-page .task-metrics {
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+  gap: 16px !important;
+}
+
+.tasks-page .task-metrics .metric-card {
+  min-width: 0;
+}
+
+/* Toolbar should breathe after the metric cards. */
+.tasks-page .task-toolbar {
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+}
+
+.tasks-page .all-tasks-section {
+  margin-top: 0 !important;
+}
+
+/* ---------- TASK CHECKBOX / MARK DONE ANIMATION ---------- */
+.task-check {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition:
+    background .22s ease,
+    border-color .22s ease,
+    color .22s ease,
+    transform .18s ease,
+    box-shadow .22s ease;
+}
+
+.task-check:active {
+  transform: scale(.88);
+}
+
+.task-item.completed .task-check {
+  animation: task-check-pop .34s cubic-bezier(.2,.9,.3,1.25);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--task-accent) 12%, transparent);
+}
+
+.task-item.completed .task-check svg {
+  animation: task-check-draw .3s ease-out both;
+  transform-origin: center;
+}
+
+.task-item.completed {
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+@keyframes task-check-pop {
+  0% {
+    transform: scale(.72);
+  }
+  65% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes task-check-draw {
+  0% {
+    opacity: 0;
+    transform: scale(.35) rotate(-12deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.15) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* ---------- SEARCH PAGE: ONE REAL ICON ONLY ---------- */
+.media-search-form::after {
+  display: none !important;
+}
+
+.media-search-form > svg {
+  position: absolute;
+  z-index: 3;
+  left: 24px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: var(--muted);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: color .2s ease, transform .2s ease;
+}
+
+.media-search-form:focus-within > svg {
+  color: var(--accent);
+  transform: translateY(-50%) scale(1.03);
+}
+
+.media-search-form input {
+  padding-left: 54px !important;
+}
+
+/* Keep the decorative top line, but make sure it never behaves like an icon. */
+.media-search-form::before {
+  pointer-events: none;
+}
+
+/* ---------- WATCHLIST: SUMMARY → MEDIA HISTORY ---------- */
+.watchlist-page .media-metrics {
+  margin-bottom: 34px !important;
+}
+
+.watchlist-page .media-grid {
+  margin-top: 0 !important;
+}
+
+/* Empty watchlist CTA should never sit directly against the footer. */
+.watchlist-page .watchlist-empty {
+  margin-top: 42px !important;
+  margin-bottom: 48px !important;
+}
+
+.watchlist-page .watchlist-empty .primary-link {
+  margin-top: 24px;
+}
+
+/* ---------- SEARCH / DETAILS / SETTINGS BREATHING ROOM ---------- */
+.search-page .search-results {
+  margin-top: 8px;
+}
+
+.search-page .search-state {
+  margin-top: 12px;
+  margin-bottom: 44px;
+}
+
+.settings-page .settings-list {
+  margin-bottom: 42px;
+}
+
+.settings-page .settings-row + .settings-row {
+  margin-top: 14px;
+}
+
+/* ---------- FOOTER: FIXED TO THE VIEWPORT ---------- */
+/*
+   App.jsx must render .page-footer for this to appear.
+   The footer is intentionally fixed so there is no second
+   background/canvas extending below it.
+*/
+.main-content {
+  position: relative;
+}
+
+.page-footer {
+  position: fixed !important;
+  z-index: 45;
+  left: var(--sidebar-width);
+  right: 0;
+  bottom: 0;
+  width: auto !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 13px 48px 14px !important;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--quiet);
+  background: color-mix(in srgb, var(--surface) 94%, transparent) !important;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 24px rgba(25,35,45,.035);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+:root[data-theme="dark"] .page-footer {
+  box-shadow: 0 -8px 24px rgba(0,0,0,.16);
+}
+
+/* Reserve only the amount needed to keep the last content readable. */
+.main-content {
+  padding-bottom: 48px;
+}
+
+/* ---------- DESKTOP LARGE ---------- */
+@media (min-width: 1200px) {
+  .tasks-page .tasks-overview .progress-summary {
+    margin-bottom: 34px !important;
+  }
+
+  .tasks-page .task-metrics {
+    gap: 18px !important;
+    margin-bottom: 34px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    margin-bottom: 34px !important;
+  }
+
+  .watchlist-page .media-metrics {
+    margin-bottom: 38px !important;
+  }
+
+  .watchlist-page .watchlist-empty {
+    margin-bottom: 58px !important;
+  }
+}
+
+/* ---------- TABLET / MOBILE ---------- */
+@media (max-width: 900px) {
+  .main-content {
+    padding-bottom: 0;
+  }
+
+  .page-footer {
+    left: 0;
+    right: 0;
+    bottom: calc(67px + env(safe-area-inset-bottom));
+    min-height: 38px !important;
+    padding: 9px 22px !important;
+    font-size: 9px;
+    box-shadow: 0 -6px 18px rgba(25,35,45,.035);
+  }
+
+  /* The fixed footer and bottom nav occupy two separate layers. */
+  .page-shell {
+    padding-bottom: 118px !important;
+  }
+
+  .page-heading {
+    margin-bottom: 28px;
+  }
+
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    margin-bottom: 26px !important;
+  }
+
+  .tasks-page .tasks-overview .progress-summary {
+    margin-bottom: 26px !important;
+  }
+
+  .tasks-page .task-metrics {
+    gap: 12px !important;
+    margin-bottom: 26px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    margin-bottom: 26px !important;
+  }
+
+  .watchlist-page .media-metrics {
+    margin-bottom: 28px !important;
+  }
+
+  .watchlist-page .watchlist-empty {
+    margin-top: 34px !important;
+    margin-bottom: 42px !important;
+  }
+
+  .watchlist-page .watchlist-empty .primary-link {
+    margin-top: 22px;
+  }
+
+  .media-search-form > svg {
+    left: 22px;
+  }
+
+  .media-search-form input {
+    padding-left: 52px !important;
+  }
+}
+
+/* ---------- MOBILE: 2 × 2 METRICS ---------- */
+@media (max-width: 680px) {
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .today-metrics .metric-card,
+  .task-metrics .metric-card,
+  .media-metrics .metric-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 108px;
+  }
+
+  .tasks-page .tasks-overview .progress-summary {
+    margin-bottom: 24px !important;
+  }
+
+  .tasks-page .task-metrics {
+    margin-bottom: 24px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    margin-bottom: 24px !important;
+  }
+
+  .watchlist-page .media-metrics {
+    margin-bottom: 28px !important;
+  }
+
+  .watchlist-page .watchlist-empty {
+    margin-top: 30px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .page-footer {
+    bottom: calc(65px + env(safe-area-inset-bottom));
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .page-shell {
+    padding-bottom: 112px !important;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+@media (max-width: 420px) {
+  .page-heading {
+    margin-bottom: 24px;
+  }
+
+  .today-metrics,
+  .task-metrics,
+  .media-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+  }
+
+  .today-metrics .metric-card,
+  .task-metrics .metric-card,
+  .media-metrics .metric-card {
+    min-height: 96px;
+  }
+
+  .tasks-page .tasks-overview .progress-summary {
+    margin-bottom: 22px !important;
+  }
+
+  .tasks-page .task-metrics {
+    gap: 8px !important;
+    margin-bottom: 22px !important;
+  }
+
+  .tasks-page .task-toolbar {
+    margin-bottom: 22px !important;
+  }
+
+  .watchlist-page .media-metrics {
+    margin-bottom: 24px !important;
+  }
+
+  .watchlist-page .watchlist-empty {
+    margin-top: 26px !important;
+    margin-bottom: 36px !important;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .media-search-form > svg {
+    left: 23px;
+    width: 17px;
+    height: 17px;
+  }
+
+  .media-search-form input {
+    padding-left: 51px !important;
+  }
+
+  .page-footer {
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    min-height: 36px !important;
+    padding: 8px 13px !important;
+  }
+
+  .page-shell {
+    padding-bottom: 108px !important;
+  }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .task-check,
+  .task-item,
+  .media-search-form,
+  .media-search-form > svg {
+    transition: none !important;
+  }
+
+  .task-item.completed .task-check,
+  .task-item.completed .task-check svg {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   MOBILE — HIDE FOOTER
+======================================== */
+
+@media (max-width: 900px) {
+  .page-footer {
+    display: none !important;
   }
 }
